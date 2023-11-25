@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Pathway+Extreme:opsz@8..144&family=Work+Sans&display=swap');
+      *{
+        font-family: 'Pathway Extreme', sans-serif;
+        font-family: 'Work Sans', sans-serif;
+      }
+
+      body{
+      display: flex;
+      justify-content: space-around;
+      width: 90%;
+      margin: auto;
+    }
+    form {
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+      margin-top: 50px;
+      width: 30%;
+      border-radius:20px ;
+      border: 1px solid blue;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      padding: 30px;
+    }
+    table{
+      font-family: Arial, Helvetica, sans-serif;
+      width: 60%;
+      text-align: center;
+      margin: 50px auto auto;
+    }
+    #filter{
+      margin: 40px auto;
+    }
+    thead{
+      text-align: center;
+      background-color: hwb(204 2% 34%);
+      color: white;
+    }
+
+    table td,
+    table th {
+      border: 1px solid #ddd;
+      padding: 8px;
+     text-align: center;
+    }
+/* 
+table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 60%;
+  margin: auto;
+  margin-top: 50px;
+  text-align: center;
+}
+
+table td,
+table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+table tr:nth-child(even) {
+  background-color: #8caacf;
+}
+
+table tr:hover {
+  background-color: #ddd;
+}
+
+table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  color: white;
+  text-align: center;
+}
+
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+}
+*/
+    input[type="submit"] {
+      background-color: #2b619e;
+      color: white;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 20px;
+    }
+    </style>
+    <title>Masai Doctor Records</title>
+  </head>
+  <body>
+    <!-- Use this form for data input  -->
+    <form>
+      <input placeholder="Name" type="text" id="name" />
+      <input placeholder="Doctor ID" type="text" id="doctor_id" />
+      <select id="specialization">
+        <option value="">Select Specialization</option>
+        <option value="Dermatologist">Dermatologist</option>
+        <option value="Dentist">Dentist</option>
+        <option value="Gynecologist">Gynecologist</option>
+      </select>
+      <input placeholder="Experience" type="number" id="experience" />
+      <input placeholder="Email" type="email" id="email" />
+      <input placeholder="Mobile No." type="number" id="mobile" />
+      <input type="submit" value="Submit" />
+    </form>
+
+    <!-- Use this Select tag for filter part  -->
+    <select id="filter">
+      <option value="">Select Specialization</option>
+      <option value="Dermatologist">Dermatologist</option>
+      <option value="Dentist">Dentist</option>
+      <option value="Gynecologist">Gynecologist</option>
+    </select>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Doctor ID</th>
+          <th>Specialization</th>
+          <th>Experience in Years</th>
+          <th>Email</th>
+          <th>Mobile No</th>
+          <th>Role</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Append Rows here using JS & DOM  -->
+      </tbody>
+    </table>
+  </body>
+  
+  <script>
+    let myform = document.querySelector("form");
+let stName = document.getElementById("name");
+let id = document.getElementById("doctor_id");
+let speciali = document.getElementById("specialization");
+let experi = document.getElementById("experience");
+let email = document.getElementById("email");
+let mobile = document.getElementById("mobile");
+let tbody = document.querySelector("tbody");
+let Alldata = [];
+myform.addEventListener("submit",function(e)
+{
+    e.preventDefault();
+    let Data ={};
+    Data.input1=stName.value;
+    Data.input2=id.value;
+    Data.input3=speciali.value;
+    Data.input4=experi.value;
+    Data.input5=email.value;
+    Data.input6=mobile.value;
+    Alldata.push(Data)
+    tbody.innerHTML=null
+    Alldata.map((ele)=>
+    {
+        let row = document.createElement("tr")
+        let td1 = document.createElement("td")
+        let td2 = document.createElement("td")
+        let td3 = document.createElement("td")
+        let td4 = document.createElement("td")
+        let td5 = document.createElement("td")
+        let td6 = document.createElement("td")
+        let td7 = document.createElement("td")
+        let td8 = document.createElement("td");
+        let deleteButton = document.createElement("button");
+        td1.innerText=ele.input1
+        td2.innerText=ele.input2
+        td3.innerText=ele.input3
+        td4.innerText=ele.input4
+        td5.innerText=ele.input5
+        td6.innerText=ele.input6
+        if(experi.value>5){
+            td7.innerText="Senior"
+        }
+        else if(experi.value>2 && experi.value<5){
+            td7.innerText="Junior"
+        }
+        else if(experi.value<=1){
+            td7.innerText="Fresher"
+        }
+        document.querySelector("form").reset();
+        deleteButton.innerText = "Delete";
+                deleteButton.addEventListener("click", function () {
+                    let rowIndex = Alldata.indexOf(ele);
+                    Alldata.splice(rowIndex, 1);
+                    row.remove();
+                });
+                td8.appendChild(deleteButton);
+        row.append(td1,td2,td3,td4,td5,td6,td7,td8);
+        tbody.append(row);
+    })
+})
+  </script>
+</html>
