@@ -6,25 +6,32 @@
     <title>Report Card</title>
 </head>
 <body>
-
+    <style>
+        h1{
+            width: 80%;
+            margin: 100px auto;           
+        }
+    </style>
+    <h1>result...</h1>
 <script>
-    function StudentReport(name, rollNo, className, section, science, ssc, maths, english, hindi) {
+    function StudentReport(name, rollNo, className, section, science, Ssc, maths, english, hindi) {
         this.name = name;
         this.rollNo = rollNo;
         this.className = className;
         this.section = section;
         this.science = science;
-        this.ssc = ssc;
+        this.Ssc = Ssc;
         this.maths = maths;
         this.english = english;
         this.hindi = hindi;
 
         this.Percentage = function () {
-            return ((this.science + this.ssc + this.maths + this.english + this.hindi) / 5).toFixed(1);
+            return ((this.science + this.Ssc + this.maths + this.english + this.hindi) / 5);
         };
 
-        this.printStudentReport = function () {
-            console.log(`+--------------------+
+        this.printReport = function () {
+            let result = document.querySelector("h1");
+            result.innerText = `+--------------------+
 |     REPORT CARD    |
 +--------------------+
 | Name     - ${this.name} |
@@ -32,17 +39,17 @@
 | Class    - ${this.className} |
 | Section  - ${this.section} |
 | Science  - ${this.science} |
-| S.Sc     - ${this.ssc} |
+| S.Sc     - ${this.Ssc} |
 | Maths    - ${this.maths} |
 | English  - ${this.english} |
 | Hindi    - ${this.hindi} |
 | Percentage - ${this.Percentage()}% |
-+--------------------+`);
++--------------------+`
         };
     }
-    const AmanReport = new StudentReport("Aman",88, "XII", "A", 72, 72, 45, 50, 27);
-
-    AmanReport.printStudentReport();
+    const AmanReport = new StudentReport("Aman",88, "XII", "A", 100, 100,100, 100, 100);
+    
+    AmanReport.printReport();
 </script>
 
 </body>
